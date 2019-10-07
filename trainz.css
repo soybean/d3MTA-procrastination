@@ -1,16 +1,28 @@
+#title{
+  font-family: 'Work Sans', sans-serif;
+  font-size: 70px;
+  text-align: center;
+
+}
+#subtitle{
+  font-size: 35px;
+
+}
 #tiny_mouse {
   display: block;
   margin:auto;
-  margin-top: 100px;
+  margin-top: 50px;
+}
+.trains{
+  text-align:center;
 }
 .train {
-  width: 30px;
-  height: 30px;
-  background-color: green;
+  width: 50px;
   display: inline-block;
   text-align: center;
+  opacity: 0.5;
 }
 
 .selected {
-  background-color: red;
+  opacity: 1;
 }

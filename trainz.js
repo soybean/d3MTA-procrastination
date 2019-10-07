@@ -62,10 +62,10 @@ $(document).ready(function() {
   })
 
 })
-var allTrains = ["1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F"]
-var selectedTrains = ["1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F"]
+var allTrains = ["1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F", "G", "J", "L", "N", "Q", "R"]
+var selectedTrains = ["1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F", "G", "J", "L", "N", "Q", "R"]
 var width = 1050;
-var height = 700;
+var height = 600;
 var newData;
 var csvpath = "https://gist.githubusercontent.com/soybean/d04d59bd6db77f1a73ee7cfe227c2c77/raw/c418303aefc16fc3be096cbc5fb37f96a62d91f5/test2.csv"
 var svg = d3.select("#tiny_mouse")
