@@ -77,7 +77,8 @@ var newData;
 var totalPix = 0
 var csvpath = "https://gist.githubusercontent.com/soybean/58ff494a98ca73d381089cb660382f8a/raw/48b74b9584d789631b565959c75824252ce61972/test.csv"
 //var csvpath = "https://gist.githubusercontent.com/soybean/d04d59bd6db77f1a73ee7cfe227c2c77/raw/c418303aefc16fc3be096cbc5fb37f96a62d91f5/test2.csv"
-var csvpath = "https://gist.githubusercontent.com/soybean/9c7090ce3ebbf1676d7ce0c9d1ec6037/raw/17b0f07469b25b6c0f0c5749a73270e1a762e7ca/test3.csv"
+//var csvpath = "https://gist.githubusercontent.com/soybean/9c7090ce3ebbf1676d7ce0c9d1ec6037/raw/17b0f07469b25b6c0f0c5749a73270e1a762e7ca/test3.csv"
+var csvpath="https://gist.githubusercontent.com/rcawkwell/2aed890cf34dc0afb6b3398329297a15/raw/8a099f1d84bf17b19647a9e826e1c855e431c60c/test4.csv"
 var svg = d3.select("#tiny_mouse")
   .attr("width", width)
   .attr("height", height)
