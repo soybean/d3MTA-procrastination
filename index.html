@@ -1,0 +1,144 @@
+<html>
+<head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<style>
+  #tiny_mouse {
+    display: block;
+    margin:auto;
+    margin-top: 100px;
+  }
+</style>
+
+</head>
+<body>
+<svg id="tiny_mouse"></svg>
+<script>
+  // var svg = d3.select("#tiny_mouse")
+  // var url1 = "http://web.mta.info/developers/data/nyct/turnstile/turnstile_191005.txt"
+  // var url2 = "http://web.mta.info/developers/data/nyct/turnstile/turnstile_190928.txt"
+  // var url3 = "http://web.mta.info/developers/data/nyct/turnstile/turnstile_190921.txt"
+  //
+  // d3.csv(url1, function(data) {
+  //   var mydata;
+  //   data.forEach(function(d){
+  //     mydata.push(parseInt(d["ENTRIES"]))
+  //   })
+  //   d3.select("#tiny_mouse")
+  //     .append("g")
+  //     .data(mydata)
+  //     .join("path")
+  //     .attr("fill", getColor)
+  // })
+  //
+  // function getColor(item) {
+  //   return interpolateViridis(item*0.0000001)
+  // }
+  var width = 1050;
+  var height = 1000;
+  csvpath = "https://gist.githubusercontent.com/soybean/d04d59bd6db77f1a73ee7cfe227c2c77/raw/c418303aefc16fc3be096cbc5fb37f96a62d91f5/test2.csv"
+  var svg = d3.select("#tiny_mouse")
+    .attr("width", width)
+    .attr("height", height)
+
+    var x = d3.time.scale()
+      .range([0, width]);
+    var y = d3.scale.linear()
+      .range([0, 100]);
+
+    var stack = d3.layout.stack()
+        .offset("silhouette")
+        .values(function(d) {
+          return d.values;
+        })
+        .x(function(d) { return d.date; })
+        .y(function(d) { return d.value; });
+    var nest = d3.nest()
+      .key(function(d) { return d.key; });
+    var area = d3.svg.area()
+        .interpolate("cardinal")
+        .x(function(d) {
+          return x(d.date);
+        })
+        .y0(function(d) {
+          //console.log(d.y0)
+          if (Number.isNaN(y(+d.y0))){
+            console.log(d.y0)
+            //console.log("Y0: " + y(+d.y0))
+          }
+          return d.y0*0.8;
+          //return y(d.y0)
+        })
+        .y1(function(d) {
+          if (Number.isNaN(d.y0) || Number.isNaN(d.y)){
+            console.log("NaN detected... in other one")
+            console.log(d)
+          }
+          if (Number.isNaN(y(d.y0 + d.y))){
+            //console.log(d.y0 + d.y)
+            //console.log("y is NaN!")
+          }
+          return (d.y0 + d.y)*0.8;
+          return y(d.y0 + d.y);
+        });
+
+  d3.csv(csvpath, function(data) {
+      //console.log(data[0]["PARENT_SEQ"])
+      data.forEach(function(d){
+
+        if (+d.INDICATOR_SEQ !== 391698 && +d.INDICATOR_SEQ !==391715){
+        d.date = new Date(+d.PERIOD_YEAR, +d.PERIOD_MONTH)
+
+          d.value = +d['MONTHLY_ACTUAL']
+          d.key = d['INDICATOR_NAME']
+        }
+      })
+
+      var select_data = data.map(function(d){
+        //console.log(d)
+          return{
+          date: d.date,
+          value: 100- d.value,
+          key: d.key
+        }
+      })
+          //console.log(select_data[0])
+      //console.log(nest.entries(select_data))
+      //console.log(nest.entries(select_data))
+      var layers = stack(nest.entries(select_data));
+      x.domain(d3.extent(data, function(d) { return d.date; }));
+      y.domain([0, d3.max(data, function(d) { return d.y0 + d.y; })]);
+      svg.selectAll(".layer")
+          .data(layers)
+        .enter().append("path")
+          .attr("class", "layer")
+          .attr("d", function(d, i) {
+            //console.log(item)
+            //console.log(area(item.values))
+            return area(d.values)
+            //return area(item.values); })
+          })
+          .style("fill", function(d,i) {
+            var color = d3.interpolateViridis(i*0.16666)
+            return color
+          })
+
+      svg.selectAll(".layer")
+      .on("mouseover", function(d) {
+        d3.select(this).style("opacity", 0.5);
+      })
+      .on("mouseout", function(d) {
+        d3.select(this).style("opacity", 1)
+      })
+  })
+
+
+
+
+
+</script>
+</body>
+</html>
