@@ -1,13 +1,37 @@
-#title{
+.title{
   font-family: 'Work Sans', sans-serif;
   font-size: 70px;
   text-align: center;
+  font-weight: 600;
 
 }
-#subtitle{
+.subtitle{
   font-size: 35px;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 500;
 
 }
+.about-text{
+  font-family: 'Work Sans', sans-serif;
+}
+.break{
+  padding:25px;
+}
+a.about-link{
+  font-size: 20px;
+  font-weight: 300;
+  color: #000000;
+  text-decoration: none;
+}
+a.about-link:hover{
+  color:#440054;
+  text-decoration: none;
+}
+.about-section{
+  padding: 10px;
+  text-align: center;
+}
+
 #tiny_mouse {
   display: block;
   margin:auto;
