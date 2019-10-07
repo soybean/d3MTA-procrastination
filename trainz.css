@@ -1,0 +1,16 @@
+#tiny_mouse {
+  display: block;
+  margin:auto;
+  margin-top: 100px;
+}
+.train {
+  width: 30px;
+  height: 30px;
+  background-color: green;
+  display: inline-block;
+  text-align: center;
+}
+
+.selected {
+  background-color: red;
+}
