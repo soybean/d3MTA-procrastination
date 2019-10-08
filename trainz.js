@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var canReset = 1
   var totalPixelsCurrentlyDisplayed = 0;
-  var allPixels = [29.31, 56.64, 40.65, 56.61, 52.88, 57.83, 34.12, 51.53, 51, 46.57, 54.43, 47.6, 59.69, 35.92, 35.29, 7.879, 36.22, 37.97]
+var allPixels = [29.31, 56.64, 40.65, 56.61, 52.88, 57.83, 34.12, 51.53, 51, 46.57, 54.43, 47.6, 59.69, 35.92, 35.29, 7.897, 36.22, 33.61, 37.97]
   function doUpdate() {
     newData = newData.filter(function(d){
       var matchingKeys = []
@@ -20,7 +20,6 @@ $(document).ready(function() {
       }
       return 1
     })
-    console.log(newData)
     var select_data = newData.map(function(d){
         return{
         date: d.date,
@@ -72,13 +71,13 @@ $(document).ready(function() {
 
   })
 
-var allTrains = ["1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F", "G", "J", "L", "N", "Q", "R"]
-var selectedTrains = ["1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F", "G", "J", "L", "N", "Q", "R"]
+var allTrains = ["1", "2", "3", "4", "5", "6", "7", "A", "B", "C", "D", "E", "F", "G", "J", "L", "N", "Q", "R"]
+var selectedTrains = ["1", "2", "3", "4", "5", "6", "7", "A", "B", "C", "D", "E", "F", "G", "J", "L", "N", "Q", "R"]
 var width = 1050;
 var height = 525;
 var newData;
 var totalPix = 0
-var csvpath = "https://gist.githubusercontent.com/soybean/58ff494a98ca73d381089cb660382f8a/raw/48b74b9584d789631b565959c75824252ce61972/test.csv"
+//var csvpath = "https://gist.githubusercontent.com/soybean/58ff494a98ca73d381089cb660382f8a/raw/48b74b9584d789631b565959c75824252ce61972/test.csv"
 //var csvpath = "https://gist.githubusercontent.com/soybean/d04d59bd6db77f1a73ee7cfe227c2c77/raw/c418303aefc16fc3be096cbc5fb37f96a62d91f5/test2.csv"
 //var csvpath = "https://gist.githubusercontent.com/soybean/9c7090ce3ebbf1676d7ce0c9d1ec6037/raw/17b0f07469b25b6c0f0c5749a73270e1a762e7ca/test3.csv"
 var csvpath="https://gist.githubusercontent.com/rcawkwell/2aed890cf34dc0afb6b3398329297a15/raw/8a099f1d84bf17b19647a9e826e1c855e431c60c/test4.csv"
@@ -108,7 +107,6 @@ var stack = d3.layout.stack()
       var pixels = allPixels[idx]
       totalPixels += pixels
     }
-    console.log(totalPixels)
     return 350/totalPixels
 
     return (-1*8/17)*selectedTrains.length + (305/34)
@@ -161,6 +159,9 @@ d3.csv(csvpath, function(data) {
     }
   })
   var layers = stack(nest.entries(select_data));
+  for (var i=0; i<layers.length; i++){
+    console.log(layers[i]["values"][100])
+  }
   //console.log(totalPix)
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([0, 1000])
@@ -202,10 +203,20 @@ d3.csv(csvpath, function(data) {
     svg.selectAll(".layer")
     .on("mouseover", function(d) {
       d3.select(this).style("opacity", 0.5);
+      matchId =  d.key[0]
+      for (var i = 0; i < allTrains.length; i++) {
+        $("#"+allTrains[i]).removeClass("selected")
+      }
+      $("#"+matchId).addClass("selected")
 
     })
     .on("mouseout", function(d) {
       d3.select(this).style("opacity", 1)
+      matchId =  d.key[0]
+      $("#"+matchId).removeClass("hover")
+      for (var i = 0; i < selectedTrains.length; i++) {
+        $("#"+selectedTrains[i]).addClass("selected")
+      }
     })
 })
 })
