@@ -44,9 +44,12 @@ a.about-link:hover{
   width: 50px;
   display: inline-block;
   text-align: center;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .selected {
   opacity: 1;
+}
+.hover{
+  opacity: 0.8;
 }

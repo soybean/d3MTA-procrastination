@@ -42,6 +42,9 @@ $(document).ready(function() {
       })
 
   }
+  // hovering over the subway icon, changes opacity of icon & graph layer
+
+
   $(".train").click(function(d) {
     var id = $(this).attr("id")
     if (canReset) {
@@ -173,9 +176,33 @@ d3.csv(csvpath, function(data) {
     return color
   })
 
+  $(".train").mouseover(function(d){
+    var id = $(this).attr("id")
+    $("#"+id).addClass("hover")
+    matchedKey = (id) + ' Line'
+    svg.selectAll('.layer').select(function(d){
+          if (d.key == matchedKey){
+            d3.select(this).style("opacity", 0.5);
+          }
+        })
+  })
+
+  $(".train").mouseout(function(d){
+    var id = $(this).attr("id")
+    $("#"+id).removeClass("hover")
+    matchedKey = (id) + ' Line'
+    var cur = svg.selectAll('.layer').select(function(d){
+          if (d.key == matchedKey){
+            return this
+          }
+        })
+    cur.style("opacity", 1);
+  })
+
     svg.selectAll(".layer")
     .on("mouseover", function(d) {
       d3.select(this).style("opacity", 0.5);
+
     })
     .on("mouseout", function(d) {
       d3.select(this).style("opacity", 1)
