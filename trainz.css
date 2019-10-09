@@ -1,33 +1,39 @@
-.title{
+body {
   font-family: 'Work Sans', sans-serif;
+}
+.title {
   font-size: 70px;
   text-align: center;
   font-weight: 600;
 
 }
-.subtitle{
+.subtitle {
   font-size: 35px;
-  font-family: 'Work Sans', sans-serif;
   font-weight: 500;
+  text-align: center
+}
 
+.subsubtitle {
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 10px
 }
-.about-text{
-  font-family: 'Work Sans', sans-serif;
-}
-.break{
+
+.break {
   padding:25px;
 }
-a.about-link{
+a.about-link {
   font-size: 20px;
   font-weight: 300;
   color: #000000;
   text-decoration: none;
 }
-a.about-link:hover{
+a.about-link:hover {
   color:#440054;
   text-decoration: none;
 }
-.about-section{
+.about-section {
   padding: 10px;
   text-align: center;
 }
@@ -37,7 +43,7 @@ a.about-link:hover{
   margin:auto;
   margin-top: 50px;
 }
-.trains{
+.trains {
   text-align:center;
 }
 .train {
@@ -50,6 +56,17 @@ a.about-link:hover{
 .selected {
   opacity: 1;
 }
-.hover{
+.hover {
   opacity: 0.8;
+}
+
+.tick {
+  font-size: 11px;
+}
+.x-axis path, .x-axis line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+
 }

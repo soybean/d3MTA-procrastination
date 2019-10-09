@@ -1,7 +1,8 @@
 $(document).ready(function() {
+
   var canReset = 1
   var totalPixelsCurrentlyDisplayed = 0;
-var allPixels = [29.31, 56.64, 40.65, 56.61, 52.88, 57.83, 34.12, 51.53, 51, 46.57, 54.43, 47.6, 59.69, 35.92, 35.29, 7.897, 36.22, 33.61, 37.97]
+  var allPixels = [29.31, 56.64, 40.65, 56.61, 52.88, 57.83, 34.12, 51.53, 51, 46.57, 54.43, 47.6, 59.69, 35.92, 35.29, 7.897, 36.22, 33.61, 37.97]
   function doUpdate() {
     newData = newData.filter(function(d){
       var matchingKeys = []
@@ -41,8 +42,6 @@ var allPixels = [29.31, 56.64, 40.65, 56.61, 52.88, 57.83, 34.12, 51.53, 51, 46.
       })
 
   }
-  // hovering over the subway icon, changes opacity of icon & graph layer
-
 
   $(".train").click(function(d) {
     var id = $(this).attr("id")
@@ -89,6 +88,18 @@ var x = d3.time.scale()
   .range([0, width]);
 var y = d3.scale.linear()
   .range([0, height-10]);
+  var startDate = new Date(2010, 1)
+  var endDate = new Date(2016, 12, 31)
+  var millisecondsBetween = (6.307e+10) //two years
+var xAxis = d3.svg.axis()
+  .scale(x)
+  .orient("bottom")
+  .tickValues(d3.range(startDate, endDate, millisecondsBetween)
+    .map(function(d){return new Date(d)})
+  )
+  .tickFormat(d3.time.format("%Y"));
+  //.ticks(d3.time.years)
+
 
 var stack = d3.layout.stack()
   .offset("silhouette")
@@ -159,10 +170,6 @@ d3.csv(csvpath, function(data) {
     }
   })
   var layers = stack(nest.entries(select_data));
-  for (var i=0; i<layers.length; i++){
-    console.log(layers[i]["values"][100])
-  }
-  //console.log(totalPix)
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([0, 1000])
   svg.selectAll(".layer")
@@ -176,6 +183,11 @@ d3.csv(csvpath, function(data) {
     var color = d3.interpolateViridis(i*0.05263157894)
     return color
   })
+
+  svg.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", "translate(0," + 460 + ")")
+      .call(xAxis);
 
   $(".train").mouseover(function(d){
     var id = $(this).attr("id")
